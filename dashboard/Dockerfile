@@ -2,7 +2,7 @@
 FROM ubuntu
 
 # Maintainer info
-MAINTAINER Adrian Moreno <adrian.moreno@emc.com>
+MAINTAINER AirU <rolyat.wilson@gmail.com>
 
 # Get the project
 RUN apt-get update &&\
@@ -14,7 +14,7 @@ RUN npm install bower grunt-cli -g &&\
   npm install grunt
 
 RUN cd /opt &&\
-  git clone https://github.com/emccode/mars-challenge &&\
+  git clone https://github.com/rolyatwilson/mars-challenge &&\
   cd /opt/mars-challenge/dashboard/ &&\
   npm install &&\
   bower install --allow-root --force-latest --config.interactive=false &&\

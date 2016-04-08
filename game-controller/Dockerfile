@@ -2,13 +2,13 @@
 FROM golang:1.4.2
 
 # Maintainer info
-MAINTAINER Adrian Moreno <adrian.moreno@emc.com>
+MAINTAINER AirU <rolyat.wilson@gmail.com>
 
 # Get the project
-RUN go get github.com/emccode/mars-challenge/game-controller
+RUN go get github.com/rolyatwilson/mars-challenge/game-controller
 
 # Set working directory
-WORKDIR /go/src/github.com/emccode/mars-challenge/game-controller
+WORKDIR /go/src/github.com/rolyatwilson/mars-challenge/game-controller
 
 # Expose port
 EXPOSE 8080
