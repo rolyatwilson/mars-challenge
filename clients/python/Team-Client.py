@@ -8,14 +8,17 @@
 import requests
 import websocket
 import json
+import psycopg2
 
 
 # Global Variables
-team_name = 'TheShields'                        # The Name of the Team
-team_auth = ''                                  # The Team Authentication Tocken
-server_url = 'http://192.168.59.103:8080/api'   # URL of the SERVER API
-server_ws = 'ws://192.168.59.103:8080/ws'       # URL of the Sensors Websocket
-
+team_name  = 'AirU'                  # The Name of the Team
+team_auth  = '1234'                  # The Team Authentication Tocken
+server_ip  = '107.170.234.44'       # The Server IP Address
+server_url = 'http://' + server_ip + ':81/api'   # URL of the SERVER API
+server_ws  = 'ws://'   + server_ip + ':80/ws'    # URL of the Sensors Websocket
+dbport = '5432'
+ 
 
 # Server Method Calls ------------------------------------------------
 
@@ -34,7 +37,7 @@ def register_team(team_name):
     response = requests.post(url, data=payload)
 
     team_auth = response.text
-    # print ('Team Authentication Code:' + team_auth )
+    print ('Team Authentication Code:' + team_auth )
 
     if response.status_code == 200:
         print ('Team \'' + team_name + '\' joined the game!')
@@ -91,6 +94,9 @@ def data_recording(parsed_json):
     :param parsed_json:Readings from Mars Sensors
     :return:Nothing
     """
+
+    # TODO: save data to DB!
+
     print("\nData Recording: Saving Data row for persistence. Time: " + str(parsed_json['startedAt']))
 
 
@@ -109,6 +115,26 @@ def team_strategy(parsed_json):
     # Find this team
     for team in teams_list:
         if team['name'] == team_name:
+            # shield on  --> energy down by of 5x %radiation
+            # shield off --> health down by of 5x %radiation
+            # higher temp --> adds energy if shield off
+
+            if config == None:
+                None
+
+            
+
+            # life = team['life']
+            # shield = team['shield']
+            # energy = team['energy']
+
+
+            # IF SOLAR FLARE TURN SHIELD ON
+
+
+            # ELSE TURN OFF
+
+
             if team['shield'] <> True and team['energy'] > 10:
                 # Check if Shield is up and shield energy is larger than 10%
                 print("\nGameMove: Team: {0} Action: Shield UP!| Energy: {1}".format(team_name, str(team['energy'])))
@@ -124,6 +150,10 @@ team_auth = register_team(team_name)
 
 # Create the WebSocket for Listening
 ws = websocket.create_connection(server_ws)
+config = None
+
+# Create a connection to the DB
+# conn = psycopg2.connect(database="postgresdb", user="docker", password="docker", host=server_ip, port=dbport)
 
 while True:
 
