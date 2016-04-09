@@ -31,3 +31,13 @@ services:
       - controller
     environment:
       - WS_ENDPOINT=107.170.234.44:81/ws
+  storage:
+    container_name: postgresdb
+    image: rolyatwilson/storage
+    ports:
+      - "5432"
+  backup:
+    container_name: dbbackups
+    image: rolyatwilson/backups
+    ports:
+      - "22"
