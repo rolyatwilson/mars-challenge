@@ -30,4 +30,4 @@ services:
     depends_on: 
       - controller
     environment:
-      - WS_ENDPOINT:107.170.234.44:81/ws
+      - WS_ENDPOINT=107.170.234.44:81/ws
